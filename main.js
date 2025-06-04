@@ -21,7 +21,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.loadFile(path.join(__dirname, 'frontend/build/index.html'));
 
   // ⛔ Prevent maximize via double-click
   mainWindow.on('maximize', () => {

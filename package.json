@@ -1,25 +1,59 @@
 {
   "name": "cowndown-electronjs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Work Countdown Timer App",
   "main": "main.js",
+  "author": "Mahmood",
+  "license": "MIT",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "react-scripts build",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matmood-dev/Cowndown-ElectronJS.git"
+    "url": "https://github.com/matmood-dev/Cowndown-ElectronJS"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/matmood-dev/Cowndown-ElectronJS/issues"
   },
   "homepage": "https://github.com/matmood-dev/Cowndown-ElectronJS#readme",
+  "keywords": [],
   "devDependencies": {
-    "electron": "^36.4.0"
-  }
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.cowndown.timer",
+    "productName": "Work Timer",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "icon.ico"
+    ],
+    "asar": true,
+    "publish": null,
+    "mac": {
+      "target": []
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "buildVersion": "1.0.0",
+"sign": false
 }
