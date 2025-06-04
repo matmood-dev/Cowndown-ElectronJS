@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/matmood-dev/Cowndown-ElectronJS/issues"
   },
-  "homepage": "https://github.com/matmood-dev/Cowndown-ElectronJS#readme"
+  "homepage": "https://github.com/matmood-dev/Cowndown-ElectronJS#readme",
+  "devDependencies": {
+    "electron": "^36.4.0"
+  }
 }

@@ -1,0 +1,102 @@
+#root,
+html,
+body {
+  width: 800px;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Custom Title Bar === */
+.titlebar {
+  width: 800px;
+  height: 32px;
+  background: #001529;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  -webkit-user-select: none;
+  -webkit-app-region: drag; /* Entire titlebar is draggable */
+  box-sizing: border-box;
+}
+
+.titlebar-left {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.titlebar-right {
+  display: flex;
+  gap: 8px;
+}
+
+/* === Control Buttons === */
+.titlebar-right button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  -webkit-app-region: no-drag; /* Makes buttons clickable */
+}
+
+.titlebar-right button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+/* 🔴 Red Close Button */
+.titlebar-right button:last-child {
+  color: #ff4d4f;
+}
+
+.titlebar-right button:last-child:hover {
+  background-color: rgba(255, 77, 79, 0.15);
+}
+
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-controls button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  -webkit-app-region: no-drag;
+}
+
+.window-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+/* 🔴 Style close button in red */
+.window-controls button:last-child {
+  color: #ff4d4f;
+}
+
+.window-controls button:last-child:hover {
+  background-color: rgba(255, 77, 79, 0.15);
+}
