@@ -1,6 +1,8 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const path = require('path');
 
+const isDev = !app.isPackaged; // ✅ This tells us if it's development or production
+
 let mainWindow;
 let tray;
 
@@ -8,27 +10,31 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    resizable: false,          // 🔒 Can't resize
-    maximizable: false,        // 🔒 No maximize
-    fullscreenable: false,     // 🔒 No fullscreen
-    center: true,              // 🎯 Center on screen
-    frame: false,              // 🧱 Frameless
-    titleBarStyle: 'hidden',   // (for macOS, optional)
-    icon: path.join(__dirname, 'icon.png'),
+    resizable: false,
+    maximizable: false,
+    fullscreenable: false,
+    center: true,
+    frame: false,
+    titleBarStyle: 'hidden',
+    icon: path.join(__dirname, 'icon.ico'),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
-  mainWindow.loadFile(path.join(__dirname, 'frontend/build/index.html'));
+  // ✅ Load React based on mode
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+  }
 
-  // ⛔ Prevent maximize via double-click
   mainWindow.on('maximize', () => {
     mainWindow.unmaximize();
   });
 
-  // 💤 Hide to tray on close
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
       event.preventDefault();
@@ -38,25 +44,13 @@ function createWindow() {
   });
 }
 
-
 app.whenReady().then(() => {
   createWindow();
 
-  tray = new Tray(path.join(__dirname, 'icon.png'));
+  tray = new Tray(path.join(__dirname, 'icon.ico'));
   const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show App',
-      click: () => {
-        mainWindow.show();
-      }
-    },
-    {
-      label: 'Quit',
-      click: () => {
-        app.isQuiting = true;
-        app.quit();
-      }
-    }
+    { label: 'Show App', click: () => mainWindow.show() },
+    { label: 'Quit', click: () => { app.isQuiting = true; app.quit(); } }
   ]);
 
   tray.setToolTip('Work Timer');
@@ -66,7 +60,6 @@ app.whenReady().then(() => {
 ipcMain.on('window:minimize', () => {
   mainWindow.minimize();
 });
-
 
 ipcMain.on('window:close', () => {
   mainWindow.close();
